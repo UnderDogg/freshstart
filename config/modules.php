@@ -10,7 +10,7 @@ return [
     | Default module namespace.
     |
     */
-    'namespace' => 'Cms\Modules',
+    'namespace' => 'App\Modules',
 
     /*
     |--------------------------------------------------------------------------
@@ -92,20 +92,20 @@ return [
         */
 
         'generator' => [
-            'assets'     => 'Resources/assets',
-            'config'     => 'Config',
-            'command'    => 'Console',
-            'migration'  => 'Database/Migrations',
-            'model'      => 'Models',
+            'assets' => 'Resources/assets',
+            'config' => 'Config',
+            'command' => 'Console',
+            'migration' => 'Database/Migrations',
+            'model' => 'Models',
             'repository' => 'Repositories',
-            'seeder'     => 'Database/Seeders',
+            'seeder' => 'Database/Seeders',
             'controller' => 'Http/Controllers',
-            'filter'     => 'Http/Middleware',
-            'request'    => 'Http/Requests',
-            'provider'   => 'Providers',
-            'lang'       => 'Resources/lang',
-            'views'      => 'Resources/views',
-            'test'       => 'Tests',
+            'filter' => 'Http/Middleware',
+            'request' => 'Http/Requests',
+            'provider' => 'Providers',
+            'lang' => 'Resources/lang',
+            'views' => 'Resources/views',
+            'test' => 'Tests',
         ]
     ],
     /*

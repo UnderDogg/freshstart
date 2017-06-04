@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Http\Middleware;
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class IsInstalledMiddleware
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      *
@@ -20,7 +20,7 @@ class IsInstalledMiddleware
     public function handle($request, Closure $next)
     {
         if (!file_exists(base_path('.env'))) {
-            throw new \Cms\Modules\Core\Exceptions\NotInstalledException('PhoenixCMS has not been installed');
+            throw new \App\Modules\Core\Exceptions\NotInstalledException('PhoenixCMS has not been installed');
         }
 
         return $next($request);

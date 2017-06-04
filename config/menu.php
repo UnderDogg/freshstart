@@ -1,40 +1,40 @@
 <?php return array(
 
-  // Global options ------------------------------------------------ /
+    // Global options ------------------------------------------------ /
 
-  // The maximum depth a list can be generated
-  // -1 means no limit
-  'max_depth' => -1,
+    // The maximum depth a list can be generated
+    // -1 means no limit
+    'max_depth' => -1,
 
-  // Items --------------------------------------------------------- /
+    // Items --------------------------------------------------------- /
 
-  // Various options related to Items
-  'item' => array(
+    // Various options related to Items
+    'item' => array(
 
-    // The default Item element
-    'element' => 'li',
+        // The default Item element
+        'element' => 'li',
 
-    // Various classes to mark active items or children
-    'active_class'       => 'active',
-    'active_child_class' => 'active-child',
-  ),
+        // Various classes to mark active items or children
+        'active_class' => 'active',
+        'active_child_class' => 'active-child',
+    ),
 
-  // ItemLists ----------------------------------------------------- /
+    // ItemLists ----------------------------------------------------- /
 
-  'item_list' => array(
+    'item_list' => array(
 
-    // The default ItemList element
-    'element' => 'ul',
+        // The default ItemList element
+        'element' => 'ul',
 
-    // The default breadcrumb separator, set to '' to not output any separators for
-    // use with bootstrap.
-    'breadcrumb_separator' => '/',
+        // The default breadcrumb separator, set to '' to not output any separators for
+        // use with bootstrap.
+        'breadcrumb_separator' => '/',
 
-    // A prefix to prepend the links URLs with
-    'prefix'         => null,
+        // A prefix to prepend the links URLs with
+        'prefix' => null,
 
-    // Whether links should inherit their parent/handler's prefix
-    'prefix_parents' => false,
-    'prefix_handler' => false,
-  ),
+        // Whether links should inherit their parent/handler's prefix
+        'prefix_parents' => false,
+        'prefix_handler' => false,
+    ),
 );

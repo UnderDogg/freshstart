@@ -19,7 +19,7 @@ return [
     |
     */
 
-    'driver' => \Cms\Modules\Auth\Models\CustomLockDriver::class,
+    'driver' => \App\Modules\Auth\Models\CustomLockDriver::class,
 
     /*
     |--------------------------------------------------------------------------

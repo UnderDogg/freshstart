@@ -1,10 +1,10 @@
 <?php
 
-namespace Cms\Exceptions;
+namespace App\Exceptions;
 
-use Cms\Modules\Pages\Http\Controllers\Frontend\PagesController;
-use Cms\Modules\Core\Exceptions\NotInstalledException;
-use Cms\Modules\Pages\Models\Page;
+use App\Modules\Pages\Http\Controllers\Frontend\PagesController;
+use App\Modules\Core\Exceptions\NotInstalledException;
+use App\Modules\Pages\Models\Page;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -47,17 +47,17 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Exception               $e
+     * @param \Exception $e
      *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof \Cms\Modules\Core\Exceptions\NotInstalledException) {
+        if ($e instanceof \App\Modules\Core\Exceptions\NotInstalledException) {
             return $this->renderNotInstalled($e);
         }
 
-        if ($e instanceof \Cms\Modules\Core\Exceptions\InMaintenanceException) {
+        if ($e instanceof \App\Modules\Core\Exceptions\InMaintenanceException) {
             return $this->renderInMaintenance($e);
         }
 
@@ -67,16 +67,17 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException
-                && app('modules')->has('Pages')) {
+            && app('modules')->has('Pages')
+        ) {
             $page = Page::where('slug', $request->path())->first();
             if ($page) {
                 return app(PagesController::class)->getPage($page);
             }
         }
 
-        if (config('app.debug') && class_exists('\Whoops\Run')) {
+        //if (config('app.debug') && class_exists('\Whoops\Run')) {
             return $this->renderExceptionWithWhoops($e, $request);
-        }
+        //}
 
         if ($e instanceof \Illuminate\Validation\ValidationException) {
             return redirect()->back()
@@ -121,7 +122,7 @@ class Handler extends ExceptionHandler
                     $userMessage = 'Untrapped Error:';
                     break;
             }
-            $userMessage = $userMessage.'<br>'.$e->getMessage();
+            $userMessage = $userMessage . '<br>' . $e->getMessage();
         } else {
             // be apologetic but never specific ;)
             $userMessage = 'We are currently experiencing a site wide issue. We are sorry for the inconvenience!';
@@ -177,6 +178,28 @@ class Handler extends ExceptionHandler
         );
     }
 
+
+    protected function convertExceptionToResponse(Exception $e)
+    {
+        if (config('app.debug')) {
+            $whoops = new \Whoops\Run;
+            if (request()->wantsJson()) {
+                $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+            } else {
+                $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            }
+
+            return response()->make(
+                $whoops->handleException($e),
+                method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
+                method_exists($e, 'getHeaders') ? $e->getHeaders() : []
+            );
+        }
+
+        return parent::convertExceptionToResponse($e);
+    }
+
+
     /**
      * Render an error page.
      *
@@ -197,11 +220,11 @@ class Handler extends ExceptionHandler
         if ($request->ajax()) {
             $data = [
                 'message' => $message,
-                'status_code' => (int) $code,
+                'status_code' => (int)$code,
             ];
 
             if (Auth::check() && Auth::user()->hasRole('Admin')) {
-                $data['file'] = $e->getFile().':'.$e->getLine();
+                $data['file'] = $e->getFile() . ':' . $e->getLine();
                 $data['data'] = $request->all();
             }
 
@@ -210,7 +233,7 @@ class Handler extends ExceptionHandler
             $objTheme = Theme::uses(getCurrentTheme())->layout('1-column');
 
             return $objTheme
-                ->scope('partials.theme.errors.'.($code === 500 ? 'whoops' : $code), compact('code', 'message'))
+                ->scope('partials.theme.errors.' . ($code === 500 ? 'whoops' : $code), compact('code', 'message'))
                 ->render(($code ?: 500));
         }
     }
@@ -218,7 +241,7 @@ class Handler extends ExceptionHandler
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
-     * @param \Illuminate\Http\Request                 $request
+     * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Auth\AuthenticationException $exception
      *
      * @return \Illuminate\Http\Response

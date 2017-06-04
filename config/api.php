@@ -167,7 +167,7 @@ return [
 
     'auth' => [
         'basic' => 'Dingo\Api\Auth\Provider\Basic',
-        'pxcms' => 'Cms\Modules\Auth\Providers\ApiAuthenticationProvider',
+        'pxcms' => 'App\Modules\Auth\Providers\ApiAuthenticationProvider',
     ],
 
     /*
