@@ -14,18 +14,6 @@ return [
 
     'name' => 'Laravel',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application Environment
-    |--------------------------------------------------------------------------
-    |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
-    |
-    */
-
-    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +27,22 @@ return [
     */
 
     'debug' => file_exists(storage_path() . '/app/debugfile'),
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services your application utilizes. Set this in your ".env" file.
+    |
+    */
+
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +109,7 @@ return [
 
     'key' => env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+    'cipher' => env('APP_CIPHER', 'AES-256-CBC'),
 
     /*
     |--------------------------------------------------------------------------
